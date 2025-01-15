@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esnek İpli Ampul</title>
+  <link rel="stylesheet" href="./stiller.css">
+</head>
+<body>
+  <div class="container">
+    <div class="bulb"></div>
+    <div class="rope" id="rope"></div>
+  </div>
+
+  <script>
+    const rope = document.getElementById('rope');
+    const container = document.querySelector('.container');
+    let isDragging = false;
+    let startY = 0;
+    let offsetY = 0;
+
+    // İp çekme olayı
+    rope.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      rope.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+
+      const deltaY = e.clientY - startY;
+
+      // İp hareketi: sadece aşağı çekilebilir, maksimum 150px.
+      offsetY = Math.max(0, Math.min(150, deltaY));
+      rope.style.height = `${200 + offsetY}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      rope.style.cursor = 'grab';
+
+      // Yaylanma efekti
+      let currentOffsetY = offsetY;
+      const interval = setInterval(() => {
+        currentOffsetY *= 0.8; // Y ekseninde sönümlenme oranı
+        rope.style.height = `${200 + currentOffsetY}px`;
+
+        if (Math.abs(currentOffsetY) < 1) {
+          clearInterval(interval);
+          rope.style.height = '200px'; // Eski pozisyonuna dön
+        }
+      }, 20);
+
+      // Ampul ışık efekti
+      const isLightOn = container.classList.contains('light-on');
+      container.classList.toggle('light-on', !isLightOn);
+
+      // Arka plan değişimi
+      document.body.style.backgroundColor = isLightOn ? '#2c3e50' : '#f9e79f';
+    });
+  </script>
+</body>
+</html>
+

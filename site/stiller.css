@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c3e50; /* Başlangıç arka plan rengi */
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    width: 120px;
+    height: 400px;
+  }
+
+  /* Ampul tasarımı */
+  .bulb {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 120px;
+    background: #ccc;
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .bulb-inner {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  .rope {
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 200px;
+    background: #fff;
+    transform-origin: top;
+    cursor: grab;
+  }
+
+  .rope::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid #000;
+  }
+
+  .light-on .bulb {
+    background: #fff200;
+    box-shadow: 0 0 30px #fff200;
+  }
+
+  .light-on .bulb-inner {
+    background: #f7e300;
+  }
